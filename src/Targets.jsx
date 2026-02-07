@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-export default function Targets() {
+export default function Targets({ setPage }) {
+
+    useEffect(() => setPage("/targets"));
 
     return (
         <motion.div

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import MetricCard from './MetricCard';
 import { motion } from 'framer-motion';
@@ -7,9 +7,11 @@ const MAX_VALUES = { calories: 1800, protein: 180, fat: 60, addedSugar: 10, wate
 
 const defaults = { calories: "", protein: "", fat: "", addedSugar: "", water: "" };
 
-export default function Logger({ date, totals, setTotals, showTotals, setShowTotals }) {
+export default function Logger({ date, setPage, totals, setTotals, showTotals, setShowTotals }) {
 
     const [form, setForm] = useState(defaults);
+
+    useEffect(() => setPage("/"));
 
     function handleChange(event) {
         const { name, value } = event.target;

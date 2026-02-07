@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-export default function Stats() {
+export default function Stats({ setPage }) {
+
+    useEffect(() => setPage("/stats"));
 
     return (
         <motion.div

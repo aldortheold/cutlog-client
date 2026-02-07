@@ -14,26 +14,30 @@ export default function App() {
     const [totals, setTotals] = useState({ calories: 0, protein: 0, fat: 0, addedSugar: 0, water: 0 });
 
     const [date, setDate] = useState(today);
+    const [page, setPage] = useState(window.location.pathname);
 
     const [openMenu, setOpenMenu] = useState(false);
-
     const [showTotals, setShowTotals] = useState(false);
 
     return (
         <BrowserRouter>
             <Routes>
-                <Route index element={<Logger date={date} totals={totals} setTotals={setTotals} showTotals={showTotals} setShowTotals={setShowTotals} />}></Route>
-                <Route path="/targets" element={<Targets />}></Route>
-                <Route path="/presets" element={<ManagePresets />}></Route>
-                <Route path="/stats" element={<Stats />}></Route>
-                <Route path="/export" element={<ExportData />}></Route>
-                <Route path="/about" element={<About />}></Route>
+                <Route index element={<Logger date={date} setPage={setPage} totals={totals} setTotals={setTotals} showTotals={showTotals} setShowTotals={setShowTotals} />}></Route>
+                <Route path="/targets" element={<Targets setPage={setPage} />}></Route>
+                <Route path="/presets" element={<ManagePresets setPage={setPage} />}></Route>
+                <Route path="/stats" element={<Stats setPage={setPage} />}></Route>
+                <Route path="/export" element={<ExportData setPage={setPage} />}></Route>
+                <Route path="/about" element={<About setPage={setPage} />}></Route>
             </Routes>
             <header>
                 <button className={`hamburger ${openMenu ? "active" : ""}`} onClick={() => setOpenMenu(!openMenu)}>
                     <span /><span /><span />
                 </button>
                 <div className={`menu-panel ${openMenu ? "show" : ""}`}>
+                    <Link to="/" onClick={() => setOpenMenu(false)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">y<path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+                        Log Macros
+                    </Link>
                     <Link to="/targets" onClick={() => setOpenMenu(false)}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M324-111.5Q251-143 197-197t-85.5-127Q80-397 80-480t31.5-156Q143-709 197-763t127-85.5Q397-880 480-880t156 31.5Q709-817 763-763t85.5 127Q880-563 880-480t-31.5 156Q817-251 763-197t-127 85.5Q563-80 480-80t-156-31.5ZM707-253q93-93 93-227t-93-227q-93-93-227-93t-227 93q-93 93-93 227t93 227q93 93 227 93t227-93Zm-397-57q-70-70-70-170t70-170q70-70 170-70t170 70q70 70 70 170t-70 170q-70 70-170 70t-170-70Zm283-57q47-47 47-113t-47-113q-47-47-113-47t-113 47q-47 47-47 113t47 113q47 47 113 47t113-47Zm-169.5-56.5Q400-447 400-480t23.5-56.5Q447-560 480-560t56.5 23.5Q560-513 560-480t-23.5 56.5Q513-400 480-400t-56.5-23.5Z"/></svg>
                         Targets & Limits
@@ -57,10 +61,10 @@ export default function App() {
                 </div>
                 <div className="exit-menu-panel" onClick={() => setOpenMenu(false)} style={{ display: openMenu ? "block" : "none" }} />
                 <h1><Link to="/">CutLog</Link></h1>
-                <input type="date" id="date" value={date} onChange={event => {
+                {page == "/" && <input type="date" id="date" value={date} onChange={event => {
                     setShowTotals(false);
                     setDate(event.target.value);
-                }}/>
+                }}/>}
             </header>
         </BrowserRouter>
     );

@@ -1,6 +1,9 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-export default function ManagePresets() {
+export default function ManagePresets({ setPage }) {
+
+      useEffect(() => setPage("/presets"));
 
     return (
         <motion.div
