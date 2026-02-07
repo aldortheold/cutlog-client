@@ -2,6 +2,10 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Logger from './Logger';
 import Targets from './Targets';
+import ManagePresets from './ManagePresets';
+import Stats from './Stats';
+import ExportData from './ExportData';
+import About from './About';
 
 const today = new Date().toLocaleDateString("en-CA");
 
@@ -20,6 +24,10 @@ export default function App() {
             <Routes>
                 <Route index element={<Logger date={date} totals={totals} setTotals={setTotals} showTotals={showTotals} setShowTotals={setShowTotals} />}></Route>
                 <Route path="/targets" element={<Targets />}></Route>
+                <Route path="/presets" element={<ManagePresets />}></Route>
+                <Route path="/stats" element={<Stats />}></Route>
+                <Route path="/export" element={<ExportData />}></Route>
+                <Route path="/about" element={<About />}></Route>
             </Routes>
             <header>
                 <button className={`hamburger ${openMenu ? "active" : ""}`} onClick={() => setOpenMenu(!openMenu)}>

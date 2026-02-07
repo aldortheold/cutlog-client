@@ -14,7 +14,7 @@ html, body {
     margin: 0;
 }
 
-.logger, .targets, .manage-presets, .stats, .about {
+.logger, .targets, .manage-presets, .stats, .export-data, .about {
     margin-top: 85px;
 }
 

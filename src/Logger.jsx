@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import axios from "axios";
-import MetricCard from "./MetricCard";
+import axios from 'axios';
+import MetricCard from './MetricCard';
+import { motion } from 'framer-motion';
 
 const MAX_VALUES = { calories: 1800, protein: 180, fat: 60, addedSugar: 10, water: 3 };
 
@@ -85,7 +86,13 @@ export default function Logger({ date, totals, setTotals, showTotals, setShowTot
     }
 
     return (
-        <div className="logger">
+        <motion.div
+            className='logger'
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.5}}
+        >
             <section className="totals">
                 <MetricCard value={totals.calories} max={MAX_VALUES.calories} label="Calories" color="#b77100" />
                 <MetricCard value={totals.protein} max={MAX_VALUES.protein} label="Protein" color="#008f7c" />
@@ -127,6 +134,6 @@ export default function Logger({ date, totals, setTotals, showTotals, setShowTot
                     </button>
                 </div>
             </form>
-        </div>
+        </motion.div>
     );
 }
