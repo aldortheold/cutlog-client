@@ -22,12 +22,13 @@ export default function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route index element={<Logger date={date} setPage={setPage} totals={totals} setTotals={setTotals} showTotals={showTotals} setShowTotals={setShowTotals} />}></Route>
-                <Route path="/targets" element={<Targets setPage={setPage} />}></Route>
-                <Route path="/presets" element={<ManagePresets setPage={setPage} />}></Route>
-                <Route path="/stats" element={<Stats setPage={setPage} />}></Route>
-                <Route path="/export" element={<ExportData setPage={setPage} />}></Route>
-                <Route path="/about" element={<About setPage={setPage} />}></Route>
+                <Route index element={<Logger date={date} setPage={setPage} totals={totals} setTotals={setTotals} showTotals={showTotals} setShowTotals={setShowTotals} />} />
+                <Route path="/targets" element={<Targets setPage={setPage} />} />
+                <Route path="/presets" element={<ManagePresets setPage={setPage} />} />
+                <Route path="/stats" element={<Stats setPage={setPage} />} />
+                <Route path="/export" element={<ExportData setPage={setPage} />} />
+                <Route path="/about" element={<About setPage={setPage} />} />
+                <Route path="*" element={<Logger date={date} setPage={setPage} totals={totals} setTotals={setTotals} showTotals={showTotals} setShowTotals={setShowTotals} />} />
             </Routes>
             <header>
                 <button className={`hamburger ${openMenu ? "active" : ""}`} onClick={() => setOpenMenu(!openMenu)}>
