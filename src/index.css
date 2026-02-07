@@ -301,7 +301,7 @@ input[type="number"] {
     align-items: center;
     gap: 8px;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--color);
     padding: 8px 24px;
     border-radius: 12px;
@@ -316,4 +316,10 @@ input[type="number"] {
 .menu-panel svg {
     fill: currentColor;
     height: 28px;
+}
+
+.menu-panel a:last-child {
+    font-size: 1.5rem;
+    margin-top: auto;
+    margin-bottom: 12vh;
 }
