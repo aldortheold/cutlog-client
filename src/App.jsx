@@ -6,6 +6,7 @@ import ManagePresets from './ManagePresets';
 import Stats from './Stats';
 import ExportData from './ExportData';
 import About from './About';
+import NotFound from './NotFound';
 
 const today = new Date().toLocaleDateString("en-CA");
 
@@ -33,7 +34,7 @@ export default function App() {
                 <Route path="/stats" element={<Stats setPage={setPage} />} />
                 <Route path="/export" element={<ExportData setPage={setPage} />} />
                 <Route path="/about" element={<About setPage={setPage} />} />
-                <Route path="*" element={<Logger date={date} setPage={setPage} totals={totals} setTotals={setTotals} showTotals={showTotals} setShowTotals={setShowTotals} />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <header>
                 <button className={`hamburger ${openMenu ? "active" : ""}`} onClick={() => setOpenMenu(!openMenu)}>
