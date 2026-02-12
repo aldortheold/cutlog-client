@@ -6,6 +6,8 @@ import ManagePresets from './ManagePresets';
 import Stats from './Stats';
 import ExportData from './ExportData';
 import About from './About';
+import LogIn from './LogIn';
+import SignUp from './SignUp';
 import NotFound from './NotFound';
 
 const today = new Date().toLocaleDateString("en-CA");
@@ -34,6 +36,8 @@ export default function App() {
                 <Route path="/stats" element={<Stats setPage={setPage} />} />
                 <Route path="/export" element={<ExportData setPage={setPage} />} />
                 <Route path="/about" element={<About setPage={setPage} />} />
+                <Route path="/login" element={<LogIn setPage={setPage} />} />
+                <Route path="/signup" element={<SignUp setPage={setPage} />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <header>

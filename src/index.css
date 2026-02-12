@@ -14,7 +14,7 @@ html, body {
     margin: 0;
 }
 
-.logger, .targets, .manage-presets, .stats, .export-data, .about, .not-found {
+body > div {
     margin-top: 85px;
 }
 
@@ -175,7 +175,8 @@ input[type=date] {
     margin: 0 auto;
 }
 
-.log-form input[type=number] {
+.log-form input[type=number],
+.auth form input {
     font-size: 1.2rem;
     border-radius: 10px;
     padding: 2px 5px;
@@ -198,7 +199,8 @@ input[type="number"] {
     gap: 15px;
 }
 
-.log-form .actions button {
+.log-form .actions button,
+.auth form button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -209,12 +211,14 @@ input[type="number"] {
     margin: 20px auto;
 }
 
-.log-form .actions button:disabled {
+.log-form .actions button:disabled,
+.auth form button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.log-form .actions button:disabled:hover {
+.log-form .actions button:disabled:hover,
+.auth form button:disabled:hover {
     background-color: var(--button-bg);
 }
 
@@ -327,6 +331,73 @@ input[type="number"] {
     font-size: 1.5rem;
     margin-top: auto;
     margin-bottom: 12vh;
+}
+
+.auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100vh - 85px);
+}
+
+.auth h2 {
+    margin: auto 0 10px;
+}
+
+.auth form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 0 auto;
+}
+
+.auth form label {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 25px 0 5px;
+    cursor: pointer;
+}
+
+.auth form span {
+    font-size: 0.9rem;
+    color: red;
+    font-style: italic;
+    margin: 5px 0;
+}
+
+.auth .auth-mutual-link {
+    font-size: 1.2rem;
+    color: var(--color);
+    text-align: center;
+    margin: 15px 0 0;
+}
+
+.auth.signup .auth-mutual-link {
+    margin: 25px 0 0;
+}
+
+.auth .auth-mutual-link a {
+    color: var(--color);
+}
+
+.auth form button {
+    font-size: 1.3rem;
+    width: fit-content;
+    border-radius: 15px;
+    padding: 8px 50px;
+    margin: 50px auto;
+}
+
+.auth.login form {
+    gap: 10px;
+}
+
+.auth.login form input {
+    margin-top: 30px;
+}
+
+.auth.login form button {
+    margin: 50px auto;
 }
 
 .not-found {
