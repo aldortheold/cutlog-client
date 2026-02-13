@@ -42,8 +42,7 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
         try {
             const res = await axios.get(
                 "http://localhost:3001/logs/totals",
-                { params: { date } },
-                { headers: { accessToken: localStorage.getItem("accessToken") } }
+                { params: { date }, headers: { accessToken: localStorage.getItem("accessToken") } }
             );
             setTotals(res.data);
             setShowTotals(true);
