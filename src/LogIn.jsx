@@ -1,20 +1,29 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
 export default function LogIn({ setPage }) {
+
+    const navigate = useNavigate();
 
     useEffect(() => setPage("/login"));
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     
-    function login() {
+    function login(event) {
+        event.preventDefault();
         axios.post(
             "http://localhost:3001/users/signin",
             { username: username, password: password }
-        ).then(response => console.log(response.data));
+        ).then(response => {
+            if (response.data.error) alert(response.data.error);
+            else {
+                localStorage.setItem("accessToken", response.data);
+                navigate("/");
+            }
+        });
     }
 
     return (
@@ -26,7 +35,7 @@ export default function LogIn({ setPage }) {
             transition={{duration: 0.5}}
         >
             <h2>Welcome back!</h2>
-            <form>
+            <form onSubmit={login}>
                 <input
                     type="text"
                     placeholder="Username"
@@ -40,7 +49,7 @@ export default function LogIn({ setPage }) {
                 <span className="auth-mutual-link">
                     New to CutLog? <Link to="/signup">Create an account</Link>
                 </span>
-                <button type="submit" onClick={login}>Log In</button>
+                <button type="submit">Log In</button>
             </form>
         </motion.div>
     );

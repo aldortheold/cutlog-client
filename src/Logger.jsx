@@ -42,7 +42,8 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
         try {
             const res = await axios.get(
                 "http://localhost:3001/logs/totals",
-                { params: { date } }
+                { params: { date } },
+                { headers: { accessToken: localStorage.getItem("accessToken") } }
             );
             setTotals(res.data);
             setShowTotals(true);
@@ -68,18 +69,15 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
                 water: Number(form.water) || 0,
             };
 
-            const res = await axios.post("http://localhost:3001/logs/create", log);
+            const res = await axios.post(
+                "http://localhost:3001/logs/create", log,
+                { headers: { accessToken: localStorage.getItem("accessToken") } }
+            );
 
             setTotals(res.data.totals);
             setShowTotals(true);
 
-            setForm({
-                calories: "",
-                protein: "",
-                fat: "",
-                addedSugar: "",
-                water: "",
-            });
+            setForm({ calories: "", protein: "", fat: "", addedSugar: "", water: "" });
         }
         catch (err) {
             console.error(err);

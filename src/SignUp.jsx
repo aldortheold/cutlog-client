@@ -26,12 +26,12 @@ export default function SignUp({ setPage }) {
         password: Yup
             .string()
             .required("Password is a required field!")
-            .min(8, "Username must be at least 8 characters long!")
-            .max(30, "Username can be at most 30 characters long!"),
+            .min(8, "Password must be at least 8 characters long!")
+            .max(30, "Password can be at most 30 characters long!"),
         confirmPassword: Yup
             .string()
             .required("You must confirm your password!")
-            .oneOf([Yup.ref("password"), null], "Passwords currently do not match!"),
+            .oneOf([Yup.ref("password"), null], "Passwords do not match!"),
     });
 
     async function register(data) {
@@ -79,7 +79,7 @@ export default function SignUp({ setPage }) {
                     />
                     <ErrorMessage name="confirmPassword" component="span" />
                     <span className="auth-mutual-link">
-                        Already have an account? <Link to="/login">Log in</Link>
+                        Already have an account? <Link to="/login">Sign in</Link>
                     </span>
                     <button type="submit">Sign Up</button>
                 </Form>
