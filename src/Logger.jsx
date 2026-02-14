@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import MetricCard from './MetricCard';
+import Alert from './Alert';
+import closeModal from './assets/closeModal';
 import { motion } from 'framer-motion';
 
 const MAX_VALUES = { calories: 1800, protein: 180, fat: 60, addedSugar: 10, water: 3 };
@@ -8,6 +10,9 @@ const MAX_VALUES = { calories: 1800, protein: 180, fat: 60, addedSugar: 10, wate
 const defaults = { calories: "", protein: "", fat: "", addedSugar: "", water: "" };
 
 export default function Logger({ date, setPage, totals, setTotals, showTotals, setShowTotals }) {
+
+    const fetchErrorAlert = useRef(null);
+    const logErrorAlert = useRef(null);
 
     const [form, setForm] = useState(defaults);
 
@@ -49,16 +54,16 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
         }
         catch (err) {
             console.error(err);
-            alert("Failed to fetch totals");
+            fetchErrorAlert.current.showModal();
+            setTimeout(() => closeModal(fetchErrorAlert), 2000);
         }
     }
 
     async function update(event) {
         event.preventDefault();
-
-        if (!valid()) return;
-
         try {
+            if (!valid()) return;
+
             const log = {
                 date: date,
                 calories: Number(form.calories) || 0,
@@ -80,7 +85,8 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
         }
         catch (err) {
             console.error(err);
-            alert("Failed to log entry");
+            logErrorAlert.current.showModal();
+            setTimeout(() => closeModal(logErrorAlert), 2000);
         }
     }
 
@@ -133,6 +139,8 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
                     </button>
                 </div>
             </form>
+            <Alert ref={fetchErrorAlert} type="error" message="Failed to fetch totals" margin="300px" />
+            <Alert ref={logErrorAlert} type="error" message="Failed to log entry" margin="300px" />
         </motion.div>
     );
 }
