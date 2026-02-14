@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import axios from 'axios';
 import MetricCard from './MetricCard';
 import Alert from './Alert';
 import closeModal from './assets/closeModal';
-import { motion } from 'framer-motion';
 
 const MAX_VALUES = { calories: 1800, protein: 180, fat: 60, addedSugar: 10, water: 3 };
 
@@ -11,10 +11,10 @@ const defaults = { calories: "", protein: "", fat: "", addedSugar: "", water: ""
 
 export default function Logger({ date, setPage, totals, setTotals, showTotals, setShowTotals }) {
 
-    const fetchErrorAlert = useRef(null);
-    const logErrorAlert = useRef(null);
+    const errorAlert = useRef(null);;
 
     const [form, setForm] = useState(defaults);
+    const [errorMessage, setErrorMessage] = useState("Unexpected error occurred");
 
     useEffect(() => setPage("/"));
 
@@ -52,10 +52,11 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
             setTotals(res.data);
             setShowTotals(true);
         }
-        catch (err) {
-            console.error(err);
-            fetchErrorAlert.current.showModal();
-            setTimeout(() => closeModal(fetchErrorAlert), 2000);
+        catch (error) {
+            console.error(error);
+            setErrorMessage("Failed to fetch totals");
+            errorAlert.current.showModal();
+            setTimeout(() => closeModal(errorAlert), 2000);
         }
     }
 
@@ -85,8 +86,9 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
         }
         catch (err) {
             console.error(err);
-            logErrorAlert.current.showModal();
-            setTimeout(() => closeModal(logErrorAlert), 2000);
+            setErrorMessage("Failed to log entry");
+            errorAlert.current.showModal();
+            setTimeout(() => closeModal(errorAlert), 2000);
         }
     }
 
@@ -139,8 +141,7 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
                     </button>
                 </div>
             </form>
-            <Alert ref={fetchErrorAlert} type="error" message="Failed to fetch totals" margin="300px" />
-            <Alert ref={logErrorAlert} type="error" message="Failed to log entry" margin="300px" />
+            <Alert ref={errorAlert} type="error" message={errorMessage} margin="300px" />
         </motion.div>
     );
 }

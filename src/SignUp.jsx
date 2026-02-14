@@ -1,19 +1,21 @@
-import { useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { motion } from 'framer-motion';
 import * as Yup from "yup";
 import axios from 'axios';
-import { motion } from 'framer-motion';
+import closeModal from './assets/closeModal';
+import Alert from './Alert';
 
 export default function SignUp({ setPage }) {
 
+    const authErrorAlert = useRef(null);
+    
+    const [errorMessage, setErrorMessage] = useState("Failed to register");
+
     useEffect(() => setPage("/signup"));
 
-    const initialValues = {
-        username: "",
-        password: "",
-        confirmPassword: ""
-    };
+    const initialValues = { username: "", password: "", confirmPassword: "" };
 
     const validationSchema = Yup.object().shape({
         username: Yup
@@ -35,8 +37,19 @@ export default function SignUp({ setPage }) {
     });
 
     async function register(data) {
-        axios.post("http://localhost:3001/users/register", data)
-        .then(response => alert(response.data));
+        try {
+            const res = await axios.post("http://localhost:3001/users/register", data);
+            if (res.data.error) {
+                setErrorMessage(res.data.error);
+                authErrorAlert.current.showModal();
+                setTimeout(() => closeModal(authErrorAlert), 2000);
+            }
+        }
+        catch (error) {
+            console.error(error);
+            authErrorAlert.current.showModal();
+            setTimeout(() => closeModal(authErrorAlert), 2000);
+        }
     }
 
     return (
@@ -84,6 +97,7 @@ export default function SignUp({ setPage }) {
                     <button type="submit">Sign Up</button>
                 </Form>
             </Formik>
+            <Alert ref={authErrorAlert} type="error" message={errorMessage} margin="80px" />
         </motion.div>
     );
 }

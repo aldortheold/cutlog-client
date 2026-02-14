@@ -5,8 +5,8 @@
     --button-bg: #333333;
     --button-bg-hover: #444444;
     --color: #f3f3f3;
-    --pink: #ed4f4f;
-    --darkred: #ffffff;
+    --error-alert-bg: #f64242;
+    --error-alert-color: #ffffff;
 }
 
 html, body {
@@ -131,12 +131,12 @@ dialog {
 }
 
 .alert.error {
-    background-color: var(--pink);
-    color: var(--darkred);
+    background-color: var(--error-alert-bg);
+    color: var(--error-alert-color);
 }
 
 .alert.error svg {
-    fill: var(--darkred);
+    fill: var(--error-alert-color);
 }
 
 .alert {

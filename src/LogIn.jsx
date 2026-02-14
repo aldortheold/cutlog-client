@@ -1,29 +1,45 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { motion } from 'framer-motion';
+import axios from 'axios';
+import closeModal from './assets/closeModal';
+import Alert from './Alert';
 
 export default function LogIn({ setPage }) {
 
     const navigate = useNavigate();
+    
+    const authErrorAlert = useRef(null);
 
-    useEffect(() => setPage("/login"));
+    const [errorMessage, setErrorMessage] = useState("Failed to sign in");
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    useEffect(() => setPage("/login"));
     
-    function login(event) {
+    async function login(event) {
         event.preventDefault();
-        axios.post(
-            "http://localhost:3001/users/signin",
-            { username: username, password: password }
-        ).then(response => {
-            if (response.data.error) alert(response.data.error);
+        try {
+            const res = await axios.post(
+                "http://localhost:3001/users/signin",
+                { username: username, password: password }
+            );
+            if (res.data.error) {
+                setErrorMessage(res.data.error);
+                authErrorAlert.current.showModal();
+                setTimeout(() => closeModal(authErrorAlert), 2000);
+            }
             else {
-                localStorage.setItem("accessToken", response.data);
+                localStorage.setItem("accessToken", res.data);
                 navigate("/");
             }
-        });
+        }
+        catch (error) {
+            console.error(error);
+            authErrorAlert.current.showModal();
+            setTimeout(() => closeModal(authErrorAlert), 2000);
+        }
     }
 
     return (
@@ -51,6 +67,7 @@ export default function LogIn({ setPage }) {
                 </span>
                 <button type="submit">Log In</button>
             </form>
+            <Alert ref={authErrorAlert} type="error" message={errorMessage} margin="80px" />
         </motion.div>
     );
 }
