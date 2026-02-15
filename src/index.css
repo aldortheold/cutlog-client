@@ -559,6 +559,28 @@ input[type="number"] {
     text-align: center;
 }
 
+.password {
+    position: relative;
+}
+
+.password input {
+    width: 286.8px;
+    padding-right: 40px;
+}
+
+.password svg {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    height: 30px;
+    fill: currentColor;
+    cursor: pointer;
+}
+
+.auth.signup .password svg {
+    transform: translateY(-50%);
+}
+
 #not-found-icon {
     width: 80%;
     max-width: 600px;
