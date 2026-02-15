@@ -482,10 +482,15 @@ input[type="number"] {
     height: 28px;
 }
 
-.menu-panel a:last-child {
+.auth-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: auto 0 12vh;
+}
+
+.auth-actions a {
     font-size: 1.5rem;
-    margin-top: auto;
-    margin-bottom: 12vh;
 }
 
 .auth {
