@@ -16,8 +16,12 @@ html, body {
     margin: 0;
 }
 
-body > div {
+#root > div {
     margin-top: 85px;
+}
+
+#root > div.welcome {
+    margin-top: 0;
 }
 
 h2 {
@@ -52,6 +56,68 @@ button, input {
 
 button:hover, input:hover {
     background-color: var(--button-bg-hover);
+}
+
+.welcome {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcome-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.welcome h2 {
+    position: relative;
+    font-size: 2rem;
+    margin-top: 85px;
+    z-index: 1;
+}
+
+.welcome h3 {
+    position: relative;
+    font-size: 1.3rem;
+    width: 300px;
+    background-color: transparent;
+    text-align: center;
+    font-weight: normal;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.welcome .links {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 260px;
+    padding-bottom: 50px;
+    z-index: 1;
+}
+
+.welcome .links a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    padding: 12px 0;
+    text-decoration: none;
+    background-color: var(--color);
+    color: var(--bg);
+    border-radius: 15px;
+}
+
+.welcome .links svg {
+    height: 30px;
+    fill: currentColor;
 }
 
 header {

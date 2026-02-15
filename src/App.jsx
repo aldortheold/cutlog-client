@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { AuthContext } from './assets/AuthContext';
 import axios from 'axios';
+import Welcome from './Welcome';
 import Logger from './Logger';
 import Targets from './Targets';
 import ManagePresets from './ManagePresets';
@@ -60,13 +61,13 @@ export default function App() {
                         <Route path="/presets" element={<ManagePresets setPage={setPage} />} />
                         <Route path="/stats" element={<Stats setPage={setPage} />} />
                         <Route path="/export" element={<ExportData setPage={setPage} />} />
-                        <Route path="/about" element={<About setPage={setPage} />} />
                     </> :
                     <>
-                        <Route index element={<NotFound />} />
+                        <Route index element={<Welcome />} />
                         <Route path="/login" element={<LogIn setPage={setPage} />} />
                         <Route path="/signup" element={<SignUp setPage={setPage} />} />
                     </>}
+                    <Route path="/about" element={<About setPage={setPage} />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 {authState.status &&
