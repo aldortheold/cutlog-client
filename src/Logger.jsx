@@ -84,8 +84,8 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
 
             setForm({ calories: "", protein: "", fat: "", addedSugar: "", water: "" });
         }
-        catch (err) {
-            console.error(err);
+        catch (error) {
+            console.error(error);
             setErrorMessage("Failed to log entry");
             errorAlert.current.showModal();
             setTimeout(() => closeModal(errorAlert), 2000);

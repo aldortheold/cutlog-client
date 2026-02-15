@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import closeModal from './assets/closeModal';
+import { AuthContext } from './assets/AuthContext';
 import Alert from './Alert';
 
 export default function LogIn({ setPage }) {
@@ -10,6 +11,8 @@ export default function LogIn({ setPage }) {
     const navigate = useNavigate();
     
     const authErrorAlert = useRef(null);
+
+    const { authState, setAuthState } = useContext(AuthContext);
 
     const [errorMessage, setErrorMessage] = useState("Failed to sign in");
 
@@ -31,7 +34,8 @@ export default function LogIn({ setPage }) {
                 setTimeout(() => closeModal(authErrorAlert), 2000);
             }
             else {
-                localStorage.setItem("accessToken", res.data);
+                localStorage.setItem("accessToken", res.data.token);
+                setAuthState({ username: res.data.username, id: res.data.id, status: true });
                 navigate("/");
             }
         }
