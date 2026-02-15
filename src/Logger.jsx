@@ -15,6 +15,7 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
 
     const [form, setForm] = useState(defaults);
     const [errorMessage, setErrorMessage] = useState("Unexpected error occurred");
+    const [alertMargin, setAlertMargin] = useState("300px");
 
     useEffect(() => setPage("/"));
 
@@ -41,7 +42,6 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
 
         return true;
     }
-    
 
     async function fetchTotals() {
         try {
@@ -55,8 +55,25 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
         catch (error) {
             console.error(error);
             setErrorMessage("Failed to fetch totals");
+            setAlertMargin("300px");
             errorAlert.current.showModal();
             setTimeout(() => closeModal(errorAlert), 2000);
+        }
+    }
+
+    async function undo() {
+        const res = await axios.delete(
+            "http://localhost:3001/logs/undo",
+            { headers: { accessToken: localStorage.getItem("accessToken") } }
+        );
+        if (res.data.error) {
+            setErrorMessage(res.data.error);
+            setAlertMargin("360px");
+            errorAlert.current.showModal();
+            setTimeout(() => closeModal(errorAlert), 2000);
+        }
+        else {
+            setShowTotals(false);
         }
     }
 
@@ -87,6 +104,7 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
         catch (error) {
             console.error(error);
             setErrorMessage("Failed to log entry");
+            setAlertMargin("300px");
             errorAlert.current.showModal();
             setTimeout(() => closeModal(errorAlert), 2000);
         }
@@ -115,11 +133,11 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
             </section>
             <form className="log-form" onSubmit={update}>
                 <div className="actions top">
-                    <button>
+                    <button type="button" onClick={undo}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M560-280H120v-400h720v120h-80v-40H200v240h360v80Zm-360-80v-240 240Zm440 104 84-84-84-84 56-56 84 84 84-84 56 56-83 84 83 84-56 56-84-83-84 83-56-56Z"/></svg>
                         Remove Last
                     </button>
-                    <button onClick={() => setForm(defaults)} disabled={Object.values(form).every(v => v === "")}>
+                    <button type="button" onClick={() => setForm(defaults)} disabled={Object.values(form).every(v => v === "")}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M690-240h190v80H610l80-80Zm-500 80-85-85q-23-23-23.5-57t22.5-58l440-456q23-24 56.5-24t56.5 23l199 199q23 23 23 57t-23 57L520-160H190Zm296-80 314-322-198-198-442 456 64 64h262Zm-6-240Z"/></svg>
                         Clear Form
                     </button>
@@ -141,7 +159,7 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
                     </button>
                 </div>
             </form>
-            <Alert ref={errorAlert} type="error" message={errorMessage} margin="300px" />
+            <Alert ref={errorAlert} type="error" message={errorMessage} margin={alertMargin} />
         </motion.div>
     );
 }

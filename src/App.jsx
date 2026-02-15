@@ -46,6 +46,7 @@ export default function App() {
 
     function logout() {
         setOpenMenu(false);
+        setShowTotals(false);
         setAuthState({ username: "", id: 0, status: false });
         localStorage.removeItem("accessToken");
     }

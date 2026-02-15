@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { motion } from 'framer-motion';
 import * as Yup from "yup";
@@ -8,6 +8,8 @@ import closeModal from './assets/closeModal';
 import Alert from './Alert';
 
 export default function SignUp({ setPage }) {
+
+    const navigate = useNavigate();
 
     const authErrorAlert = useRef(null);
     
@@ -47,6 +49,7 @@ export default function SignUp({ setPage }) {
                 authErrorAlert.current.showModal();
                 setTimeout(() => closeModal(authErrorAlert), 2000);
             }
+            else navigate("/login");
         }
         catch (error) {
             console.error(error);
@@ -112,7 +115,7 @@ export default function SignUp({ setPage }) {
                     <button type="submit">Sign up</button>
                 </Form>
             </Formik>
-            <Alert ref={authErrorAlert} type="error" message={errorMessage} margin="80px" />
+            <Alert ref={authErrorAlert} type="error" message={errorMessage} margin="20px" />
         </motion.div>
     );
 }

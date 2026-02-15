@@ -79,7 +79,7 @@ export default function LogIn({ setPage }) {
                 </span>
                 <button type="submit">Login</button>
             </form>
-            <Alert ref={authErrorAlert} type="error" message={errorMessage} margin="80px" />
+            <Alert ref={authErrorAlert} type="error" message={errorMessage} margin="20px" />
         </motion.div>
     );
 }
