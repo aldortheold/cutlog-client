@@ -57,7 +57,7 @@ export default function Targets({ page, setPage }) {
             exit={{opacity: 0}}
             transition={{duration: 0.5}}
         >
-            <h2>Edit Targets & Limits</h2>
+            <h2>Edit Targets & Limits*</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="calories">Calories</label>
                 <input type="number" placeholder="Calories" id="calories" name="calories" value={form.calories} onChange={handleChange} />
