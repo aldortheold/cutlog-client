@@ -335,6 +335,7 @@ dialog {
 }
 
 .log-form input[type=number],
+.targets input[type=number],
 .auth form input {
     font-size: 1.2rem;
     border-radius: 10px;
@@ -359,6 +360,7 @@ input[type="number"] {
 }
 
 .log-form .actions button,
+.targets button,
 .auth form button {
     display: inline-flex;
     align-items: center;
@@ -371,6 +373,7 @@ input[type="number"] {
 }
 
 .log-form .actions button:disabled,
+.targets button:disabled,
 .auth form button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -395,6 +398,43 @@ input[type="number"] {
 
 .log-form .actions.top svg {
     height: 20px;
+}
+
+.targets h2 {
+    margin: 100px auto 45px;
+}
+
+.targets form {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 300px;
+    gap: 10px;
+    margin: auto;
+}
+
+.targets form > :last-child {
+    grid-column: 1 / -1;
+}
+
+.targets label {
+    font-size: 1.4rem;
+}
+
+.targets input {
+    margin-bottom: 15px;
+}
+
+.targets button {
+    font-size: 1.4rem;
+    width: 180px;
+    gap: 8px;
+    padding: 8px 0;
+    margin-top: 30px;
+}
+
+.targets svg {
+    fill: currentColor;
+    height: 28px;
 }
 
 .hamburger {
