@@ -49,7 +49,10 @@ export default function SignUp({ setPage }) {
                 authErrorAlert.current.showModal();
                 setTimeout(() => closeModal(authErrorAlert), 2000);
             }
-            else navigate("/login");
+            else {
+                localStorage.setItem("edit-targets", "1");
+                navigate("/login");
+            }
         }
         catch (error) {
             console.error(error);

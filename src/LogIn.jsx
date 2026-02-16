@@ -38,7 +38,8 @@ export default function LogIn({ setPage }) {
             else {
                 localStorage.setItem("accessToken", res.data.token);
                 setAuthState({ username: res.data.username, id: res.data.id, status: true });
-                navigate("/");
+                if (!localStorage.getItem("edit-targets")) navigate("/");
+                else navigate("/targets");
             }
         }
         catch (error) {
