@@ -406,7 +406,7 @@ input[type="number"] {
 
 .targets form {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 60% 40%;
     width: 300px;
     gap: 10px;
     margin: auto;
@@ -417,7 +417,7 @@ input[type="number"] {
 }
 
 .targets label {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
 }
 
 .targets input {
@@ -425,7 +425,7 @@ input[type="number"] {
 }
 
 .targets button {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     width: 180px;
     gap: 8px;
     padding: 8px 0;

@@ -43,13 +43,13 @@ export default function Targets({ page, setPage }) {
             <form onSubmit={handleSubmit}>
                 <label htmlFor="calories">Calories</label>
                 <input type="number" placeholder="Calories" id="calories" name="calories" value={form.calories} onChange={handleChange} />
-                <label htmlFor="protein">Protein</label>
+                <label htmlFor="protein">Protein (g)</label>
                 <input type="number" placeholder="Protein" id="protein" name="protein" value={form.protein} onChange={handleChange} />
-                <label htmlFor="fat">Fat</label>
+                <label htmlFor="fat">Fat (g)</label>
                 <input type="number" placeholder="Fat" id="fat" name="fat" value={form.fat} onChange={handleChange} />
-                <label htmlFor="addedSugar">Added sugar</label>
+                <label htmlFor="addedSugar">Added sugar (g)</label>
                 <input type="number" placeholder="AddedSugar" id="addedSugar" name="addedSugar" value={form.addedSugar} onChange={handleChange} />
-                <label htmlFor="water">Water</label>
+                <label htmlFor="water">Water (L)</label>
                 <input type="number" placeholder="Water" id="water" name="water" value={form.water} onChange={handleChange} />
                 <button type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
