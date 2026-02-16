@@ -11,10 +11,12 @@ const defaults = { calories: "", protein: "", fat: "", addedSugar: "", water: ""
 
 export default function Logger({ date, setPage, totals, setTotals, showTotals, setShowTotals }) {
 
-    const errorAlert = useRef(null);;
+    const alertRef = useRef(null);;
 
     const [form, setForm] = useState(defaults);
-    const [errorMessage, setErrorMessage] = useState("Unexpected error occurred");
+
+    const [alertType, setAlertType] = useState("error");
+    const [alertMessage, setAlertMessage] = useState("Unexpected error occurred");
     const [alertMargin, setAlertMargin] = useState("300px");
 
     useEffect(() => setPage("/"));
@@ -54,10 +56,11 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
         }
         catch (error) {
             console.error(error);
-            setErrorMessage("Failed to fetch totals");
+            setAlertType("error");
+            setAlertMessage("Failed to fetch totals");
             setAlertMargin("300px");
-            errorAlert.current.showModal();
-            setTimeout(() => closeModal(errorAlert), 2000);
+            alertRef.current.showModal();
+            setTimeout(() => closeModal(alertRef), 2000);
         }
     }
 
@@ -67,13 +70,19 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
             { headers: { accessToken: localStorage.getItem("accessToken") } }
         );
         if (res.data.error) {
-            setErrorMessage(res.data.error);
+            setAlertType("error");
+            setAlertMessage(res.data.error);
             setAlertMargin("360px");
-            errorAlert.current.showModal();
-            setTimeout(() => closeModal(errorAlert), 2000);
+            alertRef.current.showModal();
+            setTimeout(() => closeModal(alertRef), 2000);
         }
         else {
-            setShowTotals(false);
+            setTotals(res.data);
+            setAlertType("success");
+            setAlertMessage("Last log removed");
+            setAlertMargin("360px");
+            alertRef.current.showModal();
+            setTimeout(() => closeModal(alertRef), 2000);
         }
     }
 
@@ -103,10 +112,11 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
         }
         catch (error) {
             console.error(error);
-            setErrorMessage("Failed to log entry");
+            setAlertType("error");
+            setAlertMessage("Failed to log entry");
             setAlertMargin("300px");
-            errorAlert.current.showModal();
-            setTimeout(() => closeModal(errorAlert), 2000);
+            alertRef.current.showModal();
+            setTimeout(() => closeModal(alertRef), 2000);
         }
     }
 
@@ -159,7 +169,7 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
                     </button>
                 </div>
             </form>
-            <Alert ref={errorAlert} type="error" message={errorMessage} margin={alertMargin} />
+            <Alert ref={alertRef} type={alertType} message={alertMessage} margin={alertMargin} />
         </motion.div>
     );
 }

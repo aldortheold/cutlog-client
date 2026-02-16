@@ -5,8 +5,8 @@
     --button-bg: #333333;
     --button-bg-hover: #444444;
     --color: #f3f3f3;
-    --error-alert-bg: #f64242;
-    --error-alert-color: #ffffff;
+    --error-alert: #f64242;
+    --success-alert: #00925c;
 }
 
 html, body {
@@ -197,19 +197,23 @@ dialog {
 }
 
 .alert.error {
-    background-color: var(--error-alert-bg);
-    color: var(--error-alert-color);
+    background-color: var(--error-alert);
 }
 
-.alert.error svg {
-    fill: var(--error-alert-color);
+.alert.success {
+    background-color: var(--success-alert);
+}
+
+.alert svg {
+    fill: var(--color);
 }
 
 .alert {
-    margin: auto;
+    color: var(--color);
     border: none;
     border-radius: 15px;
     padding: 5px 12px;
+    margin: auto;
 }
 
 .alert::backdrop {
