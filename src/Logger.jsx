@@ -5,13 +5,13 @@ import MetricCard from './MetricCard';
 import Alert from './Alert';
 import closeModal from './assets/closeModal';
 
-const MAX_VALUES = { calories: 1800, protein: 180, fat: 60, addedSugar: 10, water: 3 };
-
 const defaults = { calories: "", protein: "", fat: "", addedSugar: "", water: "" };
 
-export default function Logger({ date, setPage, totals, setTotals, showTotals, setShowTotals }) {
+export default function Logger({ date, page, setPage, totals, setTotals, showTotals, setShowTotals }) {
 
     const alertRef = useRef(null);
+
+    const [maxValues, setMaxValues] = useState({ calories: 0, protein: 0, fat: 0, addedSugar: 0, water: 0 });
 
     const [form, setForm] = useState(defaults);
 
@@ -19,7 +19,24 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
     const [alertMessage, setAlertMessage] = useState("Unexpected error occurred");
     const [alertMargin, setAlertMargin] = useState("300px");
 
-    useEffect(() => setPage("/"));
+    useEffect(() => {
+        setPage("/");
+        axios.get(
+            "http://localhost:3001/targets/fetch",
+            { headers: { accessToken: localStorage.getItem("accessToken") } }
+        ).then(res => {
+            if (res.data.error) {
+                setAlertType("error");
+                setAlertMessage("Failed to fetch targets");
+                setAlertMargin("10px");
+                alertRef.current.showModal();
+                setTimeout(() => closeModal(alertRef), 2000);
+            }
+            else {
+                setMaxValues(res.data);
+            }
+        });
+    }, [page]);
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -129,11 +146,11 @@ export default function Logger({ date, setPage, totals, setTotals, showTotals, s
             transition={{duration: 0.5}}
         >
             <section className="totals">
-                <MetricCard value={totals.calories} max={MAX_VALUES.calories} label="Calories" color="#b77100" />
-                <MetricCard value={totals.protein} max={MAX_VALUES.protein} label="Protein" color="#008f7c" />
-                <MetricCard value={totals.fat} max={MAX_VALUES.fat} label="Fat" color="#507f00" />
-                <MetricCard value={totals.addedSugar} max={MAX_VALUES.addedSugar} label="Added sugar" color="#8e0082" />
-                <MetricCard value={totals.water} max={MAX_VALUES.water} label="Water" color="#023fa2" />
+                <MetricCard value={totals.calories} max={maxValues.calories} label="Calories" color="#b77100" />
+                <MetricCard value={totals.protein} max={maxValues.protein} label="Protein" color="#008f7c" />
+                <MetricCard value={totals.fat} max={maxValues.fat} label="Fat" color="#507f00" />
+                <MetricCard value={totals.addedSugar} max={maxValues.addedSugar} label="Added sugar" color="#8e0082" />
+                <MetricCard value={totals.water} max={maxValues.water} label="Water" color="#023fa2" />
                 <div className={`totals-overlay ${showTotals ? "hidden" : ""}`}>
                     <button className="show-totals" onClick={fetchTotals}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M640-160v-280h160v280H640Zm-240 0v-640h160v640H400Zm-240 0v-440h160v440H160Z"/></svg>

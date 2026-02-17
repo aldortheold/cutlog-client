@@ -57,7 +57,7 @@ export default function App() {
                 <Routes>
                     {authState.status ?
                     <>
-                        <Route index element={<Logger date={date} setPage={setPage} totals={totals} setTotals={setTotals} showTotals={showTotals} setShowTotals={setShowTotals} />} />
+                        <Route index element={<Logger date={date} page={page} setPage={setPage} totals={totals} setTotals={setTotals} showTotals={showTotals} setShowTotals={setShowTotals} />} />
                         <Route path="/targets" element={<Targets page={page} setPage={setPage} />} />
                         <Route path="/presets" element={<ManagePresets setPage={setPage} />} />
                         <Route path="/stats" element={<Stats setPage={setPage} />} />
