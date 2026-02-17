@@ -11,7 +11,7 @@ const defaults = { calories: "", protein: "", fat: "", addedSugar: "", water: ""
 
 export default function Logger({ date, setPage, totals, setTotals, showTotals, setShowTotals }) {
 
-    const alertRef = useRef(null);;
+    const alertRef = useRef(null);
 
     const [form, setForm] = useState(defaults);
 
