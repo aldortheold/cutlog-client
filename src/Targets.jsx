@@ -51,22 +51,31 @@ export default function Targets({ page, setPage }) {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        const res = await axios.post(
-            "http://localhost:3001/targets/update", form,
-            { headers: { accessToken: localStorage.getItem("accessToken") } }
-        );
-        if (res.data.error) {
+        try {
+            const res = await axios.post(
+                "http://localhost:3001/targets/update", form,
+                { headers: { accessToken: localStorage.getItem("accessToken") } }
+            );
+            if (res.data.error) {
+                setAlertType("error");
+                setAlertMessage(res.data.error);
+                alertRef.current.showModal();
+                setTimeout(() => closeModal(alertRef), 2000);
+            }
+            else {
+                setForm({ ...res.data });
+                setOriginalForm({ ...res.data });
+                localStorage.removeItem("edit-targets");
+                setAlertType("success");
+                setAlertMessage("Targets have been saved");
+                alertRef.current.showModal();
+                setTimeout(() => closeModal(alertRef), 2000);
+            }
+        }
+        catch (error) {
+            console.error(error);
             setAlertType("error");
             setAlertMessage("Failed to save targets");
-            alertRef.current.showModal();
-            setTimeout(() => closeModal(alertRef), 2000);
-        }
-        else {
-            setForm({ ...res.data });
-            setOriginalForm({ ...res.data });
-            localStorage.removeItem("edit-targets");
-            setAlertType("success");
-            setAlertMessage("Targets have been saved");
             alertRef.current.showModal();
             setTimeout(() => closeModal(alertRef), 2000);
         }
