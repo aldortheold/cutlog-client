@@ -59,7 +59,7 @@ export default function App() {
                     <>
                         <Route index element={<Logger date={date} page={page} setPage={setPage} totals={totals} setTotals={setTotals} showTotals={showTotals} setShowTotals={setShowTotals} />} />
                         <Route path="/targets" element={<Targets page={page} setPage={setPage} />} />
-                        <Route path="/presets" element={<ManagePresets setPage={setPage} />} />
+                        <Route path="/presets" element={<ManagePresets page={page} setPage={setPage} />} />
                         <Route path="/stats" element={<Stats setPage={setPage} />} />
                         <Route path="/export" element={<ExportData setPage={setPage} />} />
                     </> :

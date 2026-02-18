@@ -5,7 +5,7 @@ import axios from 'axios';
 import Alert from './Alert';
 import closeModal from './assets/closeModal';
 
-export default function Targets({ page, setPage }) {
+export default function Targets({ setPage }) {
 
     const navigate = useNavigate();
 
@@ -19,6 +19,7 @@ export default function Targets({ page, setPage }) {
 
     useEffect(() => {
         setPage("/targets");
+        document.title = "Targets & Limits — CutLog";
         axios.get(
             "http://localhost:3001/targets/fetch",
             { headers: { accessToken: localStorage.getItem("accessToken") } }
@@ -28,7 +29,7 @@ export default function Targets({ page, setPage }) {
                 setOriginalForm({ ...res.data });
             }
         });
-    }, [page]);
+    }, []);
 
     const original = 
         form.calories == originalForm.calories &&
@@ -42,14 +43,14 @@ export default function Targets({ page, setPage }) {
         navigate("/");
     }
 
-    async function handleChange(event) {
+    async function updateForm(event) {
         setForm({
             ...form,
             [event.target.name]: event.target.value
         });
     };
 
-    async function handleSubmit(event) {
+    async function saveTargets(event) {
         event.preventDefault();
         try {
             const res = await axios.post(
@@ -90,17 +91,17 @@ export default function Targets({ page, setPage }) {
             transition={{duration: 0.5}}
         >
             <h2>Edit Targets & Limits*</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={saveTargets}>
                 <label htmlFor="calories">Calories</label>
-                <input type="number" placeholder="Calories" id="calories" name="calories" value={form.calories} onChange={handleChange} />
+                <input type="number" placeholder="Calories" id="calories" name="calories" value={form.calories} onChange={updateForm} />
                 <label htmlFor="protein">Protein (g)</label>
-                <input type="number" placeholder="Protein" id="protein" name="protein" value={form.protein} onChange={handleChange} />
+                <input type="number" placeholder="Protein" id="protein" name="protein" value={form.protein} onChange={updateForm} />
                 <label htmlFor="fat">Fat (g)</label>
-                <input type="number" placeholder="Fat" id="fat" name="fat" value={form.fat} onChange={handleChange} />
+                <input type="number" placeholder="Fat" id="fat" name="fat" value={form.fat} onChange={updateForm} />
                 <label htmlFor="addedSugar">Added sugar (g)</label>
-                <input type="number" placeholder="AddedSugar" id="addedSugar" name="addedSugar" value={form.addedSugar} onChange={handleChange} />
+                <input type="number" placeholder="AddedSugar" id="addedSugar" name="addedSugar" value={form.addedSugar} onChange={updateForm} />
                 <label htmlFor="water">Water (L)</label>
-                <input type="number" placeholder="Water" id="water" name="water" value={form.water} onChange={handleChange} />
+                <input type="number" placeholder="Water" id="water" name="water" value={form.water} onChange={updateForm} />
                 <div className="actions">
                     {localStorage.getItem("edit-targets") ?
                     <button type="button" onClick={skip}>
@@ -117,7 +118,7 @@ export default function Targets({ page, setPage }) {
                     </button>
                 </div>
             </form>
-            <p className="footnote"><span>* </span>Default targets are based on <a href="https://blueprint.bryanjohnson.com/blogs/news/bryan-johnsons-protocol">Bryan Johnson’s Blueprint protocol</a>. Use them as a baseline and tailor them to your personal nutrition goals. <Link onClick={() => setForm({ calories: 2250, protein: 130, fat: 100, addedSugar: 0, water: 2 })}>Click here to reset to defaults</Link>.</p>
+            <p className="footnote"><span>* </span>Default targets are based on <a href="https://blueprint.bryanjohnson.com/blogs/news/bryan-johnsons-protocol">Bryan Johnson’s Blueprint protocol</a>. Use them as a baseline and tailor them to your personal nutrition goals. <Link onClick={() => setForm({ calories: 2250, protein: 130, fat: 100, addedSugar: 0, water: 2 })}>Click here to reset to default targets</Link>.</p>
             <Alert ref={alertRef} type={alertType} message={alertMessage} margin="10px" />
         </motion.div>
     );

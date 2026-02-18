@@ -21,6 +21,7 @@ export default function Logger({ date, page, setPage, totals, setTotals, showTot
 
     useEffect(() => {
         setPage("/");
+        document.title = "CutLog";
         axios.get(
             "http://localhost:3001/targets/fetch",
             { headers: { accessToken: localStorage.getItem("accessToken") } }
