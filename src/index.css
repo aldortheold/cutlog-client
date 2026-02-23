@@ -337,7 +337,8 @@ dialog {
 
 .log-form input[type=number],
 .targets input[type=number],
-.auth form input {
+.auth form input,
+.new-preset .macros input {
     font-size: 1.2rem;
     border-radius: 10px;
     padding: 2px 5px;
@@ -362,6 +363,7 @@ input[type="number"] {
 
 .log-form .actions button,
 .targets .actions button,
+.new-preset button[type=submit],
 .auth form button {
     display: inline-flex;
     align-items: center;
@@ -646,6 +648,132 @@ input[type="number"] {
 
 .auth.signup .password svg {
     transform: translateY(-50%);
+}
+
+.manage-presets {
+    width: 300px;
+    margin: auto;
+}
+
+.add-preset {
+    display: flex;
+    width: 100%;
+    height: 3.4rem;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.3rem;
+    border-radius: 12px;
+}
+
+.add-preset svg {
+    height: 32px;
+    fill: currentColor;
+}
+
+.manage-presets p {
+    font-size: 1.3rem;
+    font-style: italic;
+    text-align: center;
+    margin: 25px 0;
+}
+
+.new-preset {
+    border: var(--color) 3px solid;
+    border-radius: 12px;
+    padding: 10px 20px;
+}
+
+.new-preset form {
+    text-align: center;
+}
+
+.new-preset .header {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.new-preset .header input {
+    border: none;
+    background-color: transparent;
+    font-size: 1.4rem;
+    font-weight: normal;
+    text-align: center;
+    width: 100%;
+    margin: 3px 0 0;
+}
+
+.new-preset .header input:hover {
+    background-color: transparent;
+}
+
+.new-preset .header svg {
+    height: 40px;
+    fill: currentColor;
+    cursor: pointer;
+}
+
+.category {
+    position: relative;
+}
+
+.category select {
+    font-family: Jost, Arial, Helvetica, sans-serif;
+    width: 100%;
+    font-size: 1.3rem;
+    text-align: center;
+    background-color: var(--button-bg);
+    color: var(--color);
+    border: var(--color) 3px solid;
+    border-radius: 10px;
+    padding: 3px 0;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.category select:hover {
+    background-color: var(--button-bg-hover);
+}
+
+.category svg {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.new-preset .macros {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 10px;
+    width: calc(100% - 13px);
+    margin: 15px 0;
+}
+
+.new-preset .macros > :first-child {
+    grid-column: 1 / -1;
+}
+
+.new-preset .macros input {
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.new-preset button[type=submit] {
+    font-size: 1.3rem;
+    width: 160px;
+    border-radius: 12px;
+    padding: 8px;
+    margin: 10px 0;
+}
+
+.new-preset button[type=submit] svg {
+    height: 30px;
+    fill: currentColor;
 }
 
 #not-found-icon {
