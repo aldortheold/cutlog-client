@@ -27,7 +27,7 @@ export default function LogIn({ setPage }) {
         event.preventDefault();
         try {
             const res = await axios.post(
-                "http://localhost:3001/users/signin",
+                `${import.meta.env.VITE_API_KEY}/users/signin`,
                 { username: username, password: password }
             );
             if (res.data.error) {

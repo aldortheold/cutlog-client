@@ -23,14 +23,14 @@ export default function ManagePresets({ setPage }) {
 
     const fetchPresets = async () => {
         const userId = JSON.parse(atob(token.split(".")[1])).id;
-        const res = await axios.get(`http://localhost:3001/presets/byUser/${userId}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_KEY}/presets/byUser/${userId}`);
         setPresets(res.data);
     };
 
     const handleCreate = async (e) => {
         e.preventDefault();
         const res = await axios.post(
-            "http://localhost:3001/presets/create", newPreset,
+            `${import.meta.env.VITE_API_KEY}/presets/create`, newPreset,
             { headers: { accessToken: token } }
         );
         if (res.data.error) {
@@ -44,13 +44,13 @@ export default function ManagePresets({ setPage }) {
     };
 
     const handleDelete = async (id) => {
-        await axios.delete(`http://localhost:3001/presets/${id}`, { headers: { accessToken: token } });
+        await axios.delete(`${import.meta.env.VITE_API_KEY}/presets/${id}`, { headers: { accessToken: token } });
         setPresets(presets.filter(p => p.id !== id));
     };
 
     const handleRename = async id => {
         const res = await axios.put(
-            "http://localhost:3001/presets/rename", { id, name: renameValue },
+            `${import.meta.env.VITE_API_KEY}/presets/rename`, { id, name: renameValue },
             { headers: { accessToken: token } }
         );
         if (!res.data.error) {

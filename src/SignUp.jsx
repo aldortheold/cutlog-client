@@ -43,7 +43,7 @@ export default function SignUp({ setPage }) {
 
     async function register(data) {
         try {
-            const res = await axios.post("http://localhost:3001/users/register", data);
+            const res = await axios.post(`${import.meta.env.VITE_API_KEY}/users/register`, data);
             if (res.data.error) {
                 setErrorMessage(res.data.error);
                 authErrorAlert.current.showModal();

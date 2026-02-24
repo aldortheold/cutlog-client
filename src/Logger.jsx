@@ -23,7 +23,7 @@ export default function Logger({ date, page, setPage, totals, setTotals, showTot
         setPage("/");
         document.title = "CutLog";
         axios.get(
-            "http://localhost:3001/targets/fetch",
+            `${import.meta.env.VITE_API_KEY}/targets/fetch`,
             { headers: { accessToken: localStorage.getItem("accessToken") } }
         ).then(res => {
             if (res.data.error) {
@@ -66,7 +66,7 @@ export default function Logger({ date, page, setPage, totals, setTotals, showTot
     async function fetchTotals() {
         try {
             const res = await axios.get(
-                "http://localhost:3001/logs/totals",
+                `${import.meta.env.VITE_API_KEY}/logs/totals`,
                 { params: { date }, headers: { accessToken: localStorage.getItem("accessToken") } }
             );
             setTotals(res.data);
@@ -84,7 +84,7 @@ export default function Logger({ date, page, setPage, totals, setTotals, showTot
 
     async function undo() {
         const res = await axios.delete(
-            "http://localhost:3001/logs/undo",
+            `${import.meta.env.VITE_API_KEY}/logs/undo`,
             { headers: { accessToken: localStorage.getItem("accessToken") } }
         );
         if (res.data.error) {
@@ -119,7 +119,7 @@ export default function Logger({ date, page, setPage, totals, setTotals, showTot
             };
 
             const res = await axios.post(
-                "http://localhost:3001/logs/create", log,
+                `${import.meta.env.VITE_API_KEY}/logs/create`, log,
                 { headers: { accessToken: localStorage.getItem("accessToken") } }
             );
 

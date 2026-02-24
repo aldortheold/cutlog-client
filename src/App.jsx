@@ -34,7 +34,7 @@ export default function App() {
 
     useEffect(() => {
         axios.get(
-            "http://localhost:3001/users/auth",
+            `${import.meta.env.VITE_API_KEY}/users/auth`,
             { headers: { accessToken: localStorage.getItem("accessToken") } }
         ).then(response => {
             setAuthState(response.data.error ?

@@ -21,7 +21,7 @@ export default function Targets({ setPage }) {
         setPage("/targets");
         document.title = "Targets & Limits — CutLog";
         axios.get(
-            "http://localhost:3001/targets/fetch",
+            `${import.meta.env.VITE_API_KEY}/targets/fetch`,
             { headers: { accessToken: localStorage.getItem("accessToken") } }
         ).then(res => {
             if (res.data) {
@@ -54,7 +54,7 @@ export default function Targets({ setPage }) {
         event.preventDefault();
         try {
             const res = await axios.post(
-                "http://localhost:3001/targets/update", form,
+                `${import.meta.env.VITE_API_KEY}/targets/update`, form,
                 { headers: { accessToken: localStorage.getItem("accessToken") } }
             );
             if (res.data.error) {
