@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function Stats({ setPage }) {
 
-    useEffect(() => setPage("/stats"));
+    useEffect(() => setPage("/stats"), []);
 
     return (
         <motion.div

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function ExportData({ setPage }) {
 
-    useEffect(() => setPage("/export"));
+    useEffect(() => setPage("/export"), []);
 
     return (
         <motion.div

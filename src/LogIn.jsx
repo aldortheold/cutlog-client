@@ -21,7 +21,7 @@ export default function LogIn({ setPage }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    useEffect(() => setPage("/login"));
+    useEffect(() => setPage("/login"), []);
     
     async function login(event) {
         event.preventDefault();

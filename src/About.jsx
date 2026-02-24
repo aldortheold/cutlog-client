@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function About({ setPage }) {
 
-    useEffect(() => setPage("/about"));
+    useEffect(() => setPage("/about"), []);
 
     return (
         <motion.div

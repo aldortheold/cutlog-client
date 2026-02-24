@@ -20,7 +20,7 @@ export default function SignUp({ setPage }) {
     const [passwordFieldType, setPasswordFieldType] = useState("password");
     const [confirmFieldType, setConfirmFieldType] = useState("password");
 
-    useEffect(() => setPage("/signup"));
+    useEffect(() => setPage("/signup"), []);
 
     const validationSchema = Yup.object().shape({
         username: Yup

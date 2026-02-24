@@ -7,7 +7,7 @@ import closeModal from './assets/closeModal';
 
 const defaults = { calories: "", protein: "", fat: "", addedSugar: "", water: "" };
 
-export default function Logger({ date, page, setPage, totals, setTotals, showTotals, setShowTotals }) {
+export default function Logger({ date, setPage, totals, setTotals, showTotals, setShowTotals }) {
 
     const alertRef = useRef(null);
 
@@ -37,7 +37,7 @@ export default function Logger({ date, page, setPage, totals, setTotals, showTot
                 setMaxValues(res.data);
             }
         });
-    }, [page]);
+    }, []);
 
     function handleChange(event) {
         const { name, value } = event.target;
