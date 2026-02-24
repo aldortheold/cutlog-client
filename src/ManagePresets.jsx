@@ -45,10 +45,10 @@ export default function ManagePresets({ setPage }) {
 
     const handleDelete = async (id) => {
         await axios.delete(`http://localhost:3001/presets/${id}`, { headers: { accessToken: token } });
-        setPresets(presets.filter((p) => p.id !== id));
+        setPresets(presets.filter(p => p.id !== id));
     };
 
-    const handleRename = async (id) => {
+    const handleRename = async id => {
         const res = await axios.put(
             "http://localhost:3001/presets/rename", { id, name: renameValue },
             { headers: { accessToken: token } }

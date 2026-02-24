@@ -66,11 +66,16 @@ export default function Targets({ setPage }) {
             else {
                 setForm({ ...res.data });
                 setOriginalForm({ ...res.data });
-                localStorage.removeItem("edit-targets");
-                setAlertType("success");
-                setAlertMessage("Targets have been saved");
-                alertRef.current.showModal();
-                setTimeout(() => closeModal(alertRef), 2000);
+                if (localStorage.getItem("edit-targets")) {
+                    localStorage.removeItem("edit-targets");
+                    navigate("/");
+                }
+                else {
+                    setAlertType("success");
+                    setAlertMessage("Targets have been saved");
+                    alertRef.current.showModal();
+                    setTimeout(() => closeModal(alertRef), 2000);
+                }
             }
         }
         catch (error) {
